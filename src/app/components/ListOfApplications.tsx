@@ -7,27 +7,26 @@ export const ListOfApplications = (props: {}) => {
 
   const [filteredApplications, setFilteredAplications] = useState(props.apps);
 
-  const listItems = Array.from({ length: props.apps.pagination.total_pages }, (_, index) => (
-    <li key={index} className="page-item"><button type='button' className='page-link'>{index + 1}</button></li>
-  ));
+  // const listItems = Array.from({ length: props.apps.pagination.total_pages }, (_, index) => (
+  //   <li key={index} className="page-item"><button type='button' className='page-link'>{index + 1}</button></li>
+  // ));
   const handleChange = (e) => {
     const zoneName = e.currentTarget.value;
-    const found = props.zones.data.map((n, i) => n[i + 1]).find((z, i) => z.name.includes(zoneName));
+    const found = props.zones.data.find((z, i) => z.name.includes(zoneName));
     if (zoneName === '') {
       setFilteredAplications(props.apps);
     } else if (found) {
       setFilteredAplications(prev => {
-        console.log(prev)
         prev.data = props.apps.data.filter((app, i) => {
-          return app[i + 1].zone1 == found.zone_id ||
-            app[i + 1].zone2 == found.zone_id ||
-            app[i + 1].zone3 == found.zone_id
+          return app.zone1 == found.zone_id ||
+            app.zone2 == found.zone_id ||
+            app.zone3 == found.zone_id
         })
         return prev;
       });
     }
   }
-  //App breaks because the filtered data not updating
+  console.log(filteredApplications)
 
   return (
     <div>
@@ -37,8 +36,7 @@ export const ListOfApplications = (props: {}) => {
         <input type="text" onChange={handleChange} />
       </label>
       <ul className="list-group">
-        {filteredApplications.data.map((app, i) => {
-          app = app[i + 1];
+        {filteredApplications.data.map((app) => {
           return (<li className="list-group-item d-flex gap-2 align-items-center" key={app.aplication_id}>
             <h2>{app.application_id}</h2>
             Zones:
@@ -59,7 +57,7 @@ export const ListOfApplications = (props: {}) => {
       <nav aria-label="Page navigation example">
         <ul className="pagination">
           <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-          {listItems}
+          {/* {listItems} */}
           <li className="page-item"><button className="page-link">Next</button></li>
         </ul>
       </nav>

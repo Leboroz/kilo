@@ -5,7 +5,9 @@ export async function getRequest(url: string) {
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
-    return await res.json();
+    const json = await res.json();
+    json.data = json.data.map((item, i) => item[i + 1])
+    return json;
   } catch (error) {
     console.error('Fetch error:', error);
     return { data: [] };
