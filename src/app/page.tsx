@@ -19,7 +19,6 @@ export default async function Home() {
       <main className={styles.main}>
         <ul className="list-group">
           {zones.data.map((zone, i) => {
-            zone = zone[i + 1];
             return <li className="list-group-item" key={zone.zone_id}><Link href={'zones/' + zone.zone_id}>{zone.name}</Link></li>
           })}
         </ul>

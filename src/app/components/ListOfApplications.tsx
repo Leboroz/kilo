@@ -16,17 +16,16 @@ export const ListOfApplications = (props: {}) => {
     if (zoneName === '') {
       setFilteredAplications(props.apps);
     } else if (found) {
-      setFilteredAplications(prev => {
-        prev.data = props.apps.data.filter((app, i) => {
+      setFilteredAplications(prev => ({
+        ...prev,
+        data: props.apps.data.filter((app, i) => {
           return app.zone1 == found.zone_id ||
             app.zone2 == found.zone_id ||
             app.zone3 == found.zone_id
         })
-        return prev;
-      });
+      }));
     }
   }
-  console.log(filteredApplications)
 
   return (
     <div>
